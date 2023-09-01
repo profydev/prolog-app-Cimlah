@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Routes } from "@config/routes";
 import classNames from "classnames";
 import { NavigationContext } from "./navigation-context";
@@ -20,6 +20,14 @@ export function SidebarNavigation() {
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener("resize", () =>
+      setViewportWidth(window.innerWidth),
+    );
+  }, []);
+
   return (
     <div
       className={classNames(
@@ -37,7 +45,7 @@ export function SidebarNavigation() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
-              isSidebarCollapsed
+              isSidebarCollapsed && viewportWidth > 1024
                 ? "/icons/logo-small.svg"
                 : "/icons/logo-large.svg"
             }
@@ -75,6 +83,7 @@ export function SidebarNavigation() {
                 {...menuItem}
                 isCollapsed={isSidebarCollapsed}
                 isActive={router.pathname === menuItem.href}
+                vieportWidth={viewportWidth}
               />
             ))}
           </ul>
@@ -85,6 +94,7 @@ export function SidebarNavigation() {
               text="Support"
               isCollapsed={isSidebarCollapsed}
               isActive={false}
+              vieportWidth={viewportWidth}
             ></MenuItemLink>
 
             <MenuItemButton
