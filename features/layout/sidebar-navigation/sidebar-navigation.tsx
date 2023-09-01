@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Routes } from "@config/routes";
 import classNames from "classnames";
 import { NavigationContext } from "./navigation-context";
@@ -20,6 +20,16 @@ export function SidebarNavigation() {
   const router = useRouter();
   const { isSidebarCollapsed, toggleSidebar } = useContext(NavigationContext);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    setViewportWidth(window.innerWidth);
+
+    window.addEventListener("resize", () =>
+      setViewportWidth(window.innerWidth),
+    );
+  }, []);
+
   return (
     <div
       className={classNames(
@@ -37,7 +47,7 @@ export function SidebarNavigation() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={
-              isSidebarCollapsed
+              isSidebarCollapsed && viewportWidth > 1024
                 ? "/icons/logo-small.svg"
                 : "/icons/logo-large.svg"
             }
@@ -75,27 +85,18 @@ export function SidebarNavigation() {
                 {...menuItem}
                 isCollapsed={isSidebarCollapsed}
                 isActive={router.pathname === menuItem.href}
+                vieportWidth={viewportWidth}
               />
             ))}
           </ul>
           <ul className={styles.list}>
-            {/* <a
-              className={styles.mailAnchor}
-              href="mailto:support@prolog-app.com?subject=Support%20Request:"
-            >
-              <MenuItemButton
-                text="Support"
-                iconSrc="/icons/support.svg"
-                isCollapsed={isSidebarCollapsed}
-                onClick={() => {}}
-              />
-            </a> */}
             <MenuItemLink
               href="mailto:support@prolog-app.com?subject=Support%20Request:"
               iconSrc="/icons/support.svg"
               text="Support"
               isCollapsed={isSidebarCollapsed}
               isActive={false}
+              vieportWidth={viewportWidth}
             ></MenuItemLink>
 
             <MenuItemButton
