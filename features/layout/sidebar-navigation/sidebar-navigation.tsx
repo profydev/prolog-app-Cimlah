@@ -23,6 +23,8 @@ export function SidebarNavigation() {
   const [viewportWidth, setViewportWidth] = useState(0);
 
   useEffect(() => {
+    setViewportWidth(window.innerWidth);
+
     window.addEventListener("resize", () =>
       setViewportWidth(window.innerWidth),
     );
