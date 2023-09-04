@@ -14,8 +14,21 @@
   }
 }
 
-.main {
+.mainAndFooterWrapper {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: breakpoint.$desktop) {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+.main {
+  @media (min-width: breakpoint.$desktop) {
+    overflow: scroll;
+  }
 }
 
 .contentContainer {
