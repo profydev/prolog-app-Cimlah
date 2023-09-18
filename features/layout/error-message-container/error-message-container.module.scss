@@ -1,0 +1,44 @@
+@use "@styles/space";
+@use "@styles/font";
+@use "@styles/color";
+@use "@styles/breakpoint";
+
+.container {
+  background-color: color.$error-25;
+  border: 1px solid color.$error-300;
+  border-radius: space.$s2;
+  padding: space.$s4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: space.$s3;
+}
+
+.container p {
+  font: font.$text-sm-medium;
+  color: color.$error-700;
+  margin: 0;
+  text-align: left;
+}
+
+.container button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: space.$s2;
+}
+
+.container button p {
+  width: max-content;
+}
+
+.iconAndError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: space.$s4;
+}
