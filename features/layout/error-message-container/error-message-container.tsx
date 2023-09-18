@@ -6,7 +6,7 @@ export function ErrorMessageContainer() {
   const { setKey } = useContext(ProjectListContext);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id="error-message-container">
       <div className={styles.iconAndError}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/icons/alert-circle.svg" alt="Alert Circle" />
